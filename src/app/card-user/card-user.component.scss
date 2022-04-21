@@ -1,5 +1,6 @@
 .container{
   text-align: center;
+  margin-right: 50px;
 }
 .image-user{
   max-height: 300px;
@@ -21,4 +22,14 @@
 }
 .user-list-link{
   margin: 0 20px 0 0;
+}
+.refresh-data{
+  color: black;
+  background: transparent;
+  border-color: transparent;
+  text-decoration: underline;
+}
+.refresh-data:hover{
+  color: grey;
+  cursor: pointer;
 }

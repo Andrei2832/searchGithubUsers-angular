@@ -16,6 +16,7 @@
 .list-users{
   max-height: 800px;
 
+  text-align: center;
   margin: 0 auto;
   flex: 0 0 60%;
   overflow-y: scroll;
@@ -52,8 +53,9 @@
   text-align: center;
 }
 .load{
+
     width: 400px;
     text-align: center;
     font-size: 24px;
-    margin: 200px;
+    margin: 50px auto;
 }

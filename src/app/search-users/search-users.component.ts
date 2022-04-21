@@ -11,6 +11,7 @@ import {CardUserComponent} from "../card-user/card-user.component";
 export class SearchUsersComponent implements OnInit {
 
   load: boolean = false;
+  loadCard: boolean = false;
   message: string = '';
   pageCount: number = 1;
   countUser: number = 0;
@@ -82,6 +83,7 @@ export class SearchUsersComponent implements OnInit {
     this.pageCount = 1;
     this.message = '';
     this.userCard = null;
+    this.load = false;
   }
 
    messageCountUsersOrError(users: number,error: any = 0): void {
@@ -92,16 +94,20 @@ export class SearchUsersComponent implements OnInit {
       this.message = 'По вашему запросу пользователей не найдено'
     }
     if (error){
-      this.message = (error === 403) ? 'Слишком частые запросы! Немного подождите' :
-        (error === 1) ? 'Пустая строка!' :'Неизвестная ошибка! Перезагрузите страницу!'
+      this.message = (error === 403) ? 'Слишком частые запросы! Немного подождите' : 'Неизвестная ошибка! Перезагрузите страницу!'
     }
   }
 
   creatCardUser(user: any):void{
 
     this.userCard = null;
-    this.userCard = user;
-    //this.cardUserComponent.detailedUserCard(user);
+    this.loadCard = true;
+    setTimeout(()=>{
+      this.creat(user);
+    },1000)
   }
-
+  public creat(user: any){
+    this.userCard = user;
+    this.loadCard = false;
+  }
 }

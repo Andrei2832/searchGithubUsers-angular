@@ -19,9 +19,10 @@
     </div>
   </div>
 
-
+    <p *ngIf="loadCard" class="load">Загрузка...</p>
     <app-card-user class="card-user" *ngIf="userCard"
-    [user] = userCard></app-card-user>
+                   [user] = userCard></app-card-user>
+
 
 </div>
 
