@@ -16,7 +16,9 @@ import { CardUserComponent } from './card-user/card-user.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    CardUserComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

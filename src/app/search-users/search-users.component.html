@@ -1,1 +1,27 @@
-<p>search-users works!</p>
+<div class="search">
+  <h2>Поиск пользователей GitHub</h2>
+  <input #search class="search__input" (input)="sendData(search.value)" >
+  <div class="message">{{message}}</div>
+</div>
+
+<div class="container">
+  <div class="list-users">
+    <p *ngIf="load" class="load">Загрузка...</p>
+    <ul *ngIf="countUser > 0" class="list-users__ul" >
+      <app-list-users class="list-users__items"
+        *ngFor="let list of listUsers"
+        [user]="list"
+        (click)="creatCardUser(list)"></app-list-users>
+    </ul>
+
+    <div *ngIf="countUser > 20" class="listUsers__download-more">
+      <button class="download-more__button" (click)="updateListUsers(search.value)">Загрузить ещё</button>
+    </div>
+  </div>
+
+
+    <app-card-user class="card-user" *ngIf="userCard"
+    [user] = userCard></app-card-user>
+
+</div>
+

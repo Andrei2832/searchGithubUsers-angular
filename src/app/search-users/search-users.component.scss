@@ -1,0 +1,59 @@
+.search{
+  text-align: center;
+}
+.search__input{
+  height: 20px;
+  width: 300px;
+}
+.message{
+  font-size: 20px;
+  margin: 10px;
+}
+
+.container{
+  display: flex;
+}
+.list-users{
+  max-height: 800px;
+
+  margin: 0 auto;
+  flex: 0 0 60%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+.list-users::-webkit-scrollbar {
+  width: 0;
+}
+.list-users__ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+.download-more__button{
+  margin: 20px 0;
+  font-size: 18px;
+  font-weight: bold;
+  border: transparent;
+  background: transparent;
+}
+.download-more__button:hover{
+  color: grey;
+}
+.list-users__items {
+  cursor: pointer;
+  flex: 0 1 200px ;
+  margin: 30px 0 0 0;
+}
+.listUsers__download-more{
+  margin-top: 30px;
+  text-align: center;
+}
+.load{
+    width: 400px;
+    text-align: center;
+    font-size: 24px;
+    margin: 200px;
+}

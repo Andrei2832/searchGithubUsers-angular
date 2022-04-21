@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {LoadUserDataService} from "../service/load-user-data.service";
 
 @Component({
   selector: 'app-card-user',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardUserComponent implements OnInit {
 
-  constructor() { }
+  @Input() user: any;
+  following: any;
+  followers: any;
+  repos: any
+
+  constructor(private loadUserDataService: LoadUserDataService) { }
 
   ngOnInit(): void {
+    this.detailedUserCard()
+  }
+  detailedUserCard(){
+    this.loadUserDataService.loadUserData(this.user.login,1,1,1).then(userData => {
+      [this.following, this.followers, this.repos] = userData;
+    })
+
   }
 
 }

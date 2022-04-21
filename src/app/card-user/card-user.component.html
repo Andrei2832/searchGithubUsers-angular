@@ -1,1 +1,38 @@
-<p>card-user works!</p>
+<div class="container">
+  <img class="image-user" src="{{user.avatar_url}}">
+  <h2 class="user-name">{{user.login}}</h2>
+
+  <div class="user-block" >
+    <h3 class="user-block-title">Following</h3>
+    <p *ngIf="!following" class="load">Загрузка...</p>
+<!--    <button class="refresh-data" id="but${title}">обновить</button>-->
+    <ul class="user-list" >
+      <li *ngFor="let follow of following">
+        <a href="{{follow.html_url}}" class="user-list-link">{{follow.login ? follow.login : follow.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="user-block" >
+    <h3 class="user-block-title">Followers</h3>
+    <p *ngIf="!followers" class="load">Загрузка...</p>
+<!--    <button class="refresh-data" id="but${title}">обновить</button>-->
+    <ul class="user-list" >
+      <li *ngFor="let follower of followers">
+        <a href="{{follower.html_url}}" class="user-list-link">{{follower.login ? follower.login : follower.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="user-block" >
+    <h3 class="user-block-title">Repos</h3>
+    <p *ngIf="!repos" class="load">Загрузка...</p>
+<!--    <button class="refresh-data" id="but${title}">обновить</button>-->
+    <ul class="user-list" >
+      <li *ngFor="let rep of repos">
+        <a href="{{rep.html_url}}" class="user-list-link">{{rep.login ? rep.login : rep.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
