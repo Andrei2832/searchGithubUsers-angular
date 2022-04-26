@@ -11,7 +11,8 @@
       <app-list-users class="list-users__items"
         *ngFor="let list of listUsers"
         [user]="list"
-        (click)="creatCardUser(list)"></app-list-users>
+        (click)="creatCardUser(list)"
+        routerLink="/cardUser/{{list.id}}"></app-list-users>
     </ul>
 
     <div *ngIf="countUser > 20" class="listUsers__download-more">
@@ -19,9 +20,10 @@
     </div>
   </div>
 
-    <p *ngIf="loadCard" class="load">Загрузка...</p>
-    <app-card-user class="card-user" *ngIf="userCard"
-                   [user] = userCard></app-card-user>
+
+<!--    <p *ngIf="loadCard" class="load">Загрузка...</p>-->
+<!--    <app-card-user class="card-user" *ngIf="userCard"-->
+<!--                   [user] = userCard></app-card-user>-->
 
 
 </div>

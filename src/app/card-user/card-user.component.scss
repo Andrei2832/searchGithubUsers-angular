@@ -1,6 +1,8 @@
 .container{
+  margin: 0 auto;
+  position: relative;
   text-align: center;
-  margin-right: 50px;
+  max-width: 1000px;
 }
 .image-user{
   max-height: 300px;
@@ -11,14 +13,14 @@
   display: inline-block;
 }
 .user-list{
+  max-width: 600px;
   border-top: 1px solid black;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-
 }
 .user-list-link{
   margin: 0 20px 0 0;
@@ -30,6 +32,17 @@
   text-decoration: underline;
 }
 .refresh-data:hover{
+  color: grey;
+  cursor: pointer;
+}
+.back{
+  border-color: transparent;
+  background: transparent;
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+}
+.back:hover{
   color: grey;
   cursor: pointer;
 }

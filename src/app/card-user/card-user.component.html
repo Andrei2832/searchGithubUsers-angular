@@ -1,4 +1,6 @@
 <div class="container">
+
+  <button class="back" routerLink="/searchUsers">Назад</button>
   <img class="image-user" src="{{user.avatar_url}}">
   <h2 class="user-name">{{user.login}}</h2>
 
@@ -7,13 +9,13 @@
     <h3 class="user-block-title">Following</h3>
     <button *ngIf="errorFollowing" (click)="refreshData('following')" class="refresh-data" >обновить</button>
 
-    <p *ngIf="!following && !errorFollowing" class="load">Загрузка...</p>
+    <p *ngIf="!cardUser.following && !errorFollowing" class="load">Загрузка...</p>
     <p *ngIf="errorFollowing" class="load">Ошибка!</p>
 
 
     <ul class="user-list" *ngIf="!errorFollowing">
-      <li *ngFor="let follow of following" >
-        <a href="{{follow.html_url}}" class="user-list-link">{{follow.login ? follow.login : follow.name}}</a>
+      <li *ngFor="let follow of cardUser.following" >
+        <a href="{{follow.html_url}}" class="user-list-link">{{follow.login}}</a>
       </li>
     </ul>
   </div>
@@ -23,13 +25,13 @@
     <h3 class="user-block-title">Followers</h3>
     <button *ngIf="errorFollowers" (click)="refreshData('followers')" class="refresh-data" >обновить</button>
 
-    <p *ngIf="!followers && !errorFollowers" class="load">Загрузка...</p>
+    <p *ngIf="!cardUser.followers && !errorFollowers" class="load">Загрузка...</p>
     <p *ngIf="errorFollowers" class="load">Ошибка!</p>
 
 
     <ul class="user-list" *ngIf="!errorFollowers">
-      <li *ngFor="let follower of followers">
-        <a href="{{follower.html_url}}" class="user-list-link">{{follower.login ? follower.login : follower.name}}</a>
+      <li *ngFor="let follower of cardUser.followers">
+        <a href="{{follower.html_url}}" class="user-list-link">{{follower.login}}</a>
       </li>
     </ul>
   </div>
@@ -39,13 +41,13 @@
     <h3 class="user-block-title">Repos</h3>
     <button *ngIf="errorRepos" (click)="refreshData('repos')" class="refresh-data" >обновить</button>
 
-    <p *ngIf="!repos && !errorRepos" class="load">Загрузка...</p>
+    <p *ngIf="!cardUser.repos && !errorRepos" class="load">Загрузка...</p>
     <p *ngIf="errorRepos" class="load">Ошибка!</p>
 
 
     <ul class="user-list" *ngIf="!errorRepos">
-      <li *ngFor="let rep of repos" >
-        <a href="{{rep.html_url}}" class="user-list-link">{{rep.login ? rep.login : rep.name}}</a>
+      <li *ngFor="let rep of cardUser.repos" >
+        <a href="{{rep.html_url}}" class="user-list-link">{{rep.name}}</a>
       </li>
     </ul>
   </div>

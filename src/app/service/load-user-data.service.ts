@@ -1,41 +1,47 @@
 import { Injectable } from '@angular/core';
+import {CardUser} from "../interface/card-user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadUserDataService {
 
+  public data = {} as CardUser;
+
   constructor() { }
 
-   async loadUserData(user: any, followingTrue = 1,followersTrue= 1,reposTrue= 1): Promise<any> {
+   async loadUserData(user: any, followingTrue = 1,followersTrue= 1,reposTrue= 1): Promise<CardUser> {
     const URL = 'https://api.github.com/';
-    const urls = [];
+
     try {
       if (followingTrue){
-        urls.push(`${URL}users/${user}/following`);
+        let dataURL = await fetch(`${URL}users/${user}/following`);
+
+        dataURL.json().then((data) => {
+          this.data.following = data;
+        })
       }
       if (followersTrue){
-        urls.push(`${URL}users/${user}/followers`);
+        let dataURL = await fetch(`${URL}users/${user}/followers`);
+
+        dataURL.json().then((data) => {
+          this.data.followers = data;
+        })
       }
       if (reposTrue){
-        urls.push(`${URL}users/${user}/repos`);
+        let dataURL = await fetch(`${URL}users/${user}/repos`);
+
+        dataURL.json().then((data) => {
+          this.data.repos = data;
+        })
       }
-      const requests = urls.map(url => fetch(url));
 
-      // urls.map(url => fetch(url).then(data => {
-      //   let check = data.status;
-      //   if (check !== 200){
-      //     //messageCountUsersOrError(0,check);
-      //   }
-      // }));
-
-      return await Promise.all(requests)
-        .then(responses => Promise.all(responses.map(r => r.json())))
+      return this.data
 
     }catch (e){
       console.log(e);
-      return false;
-      //messageCountUsersOrError(0,e);
+      return this.data;
+
     }
 
   }

@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoadUserDataService} from "../service/load-user-data.service";
+import {CardUser} from "../interface/card-user";
+import {User} from "../interface/user";
+import {ActivatedRoute, Router} from '@angular/router';
+import {GetUserService} from "../service/get-user.service";
 
 @Component({
   selector: 'app-card-user',
@@ -8,25 +12,32 @@ import {LoadUserDataService} from "../service/load-user-data.service";
 })
 export class CardUserComponent implements OnInit {
 
-  @Input() user: any;
-  following: any;
-  followers: any;
-  repos: any
-
-
+  //@Input() user!: User;
+  public user = {} as User;
+  public cardUser = {} as CardUser;
 
   errorFollowing:boolean = false;
   errorFollowers:boolean = false;
   errorRepos: boolean = false;
-  constructor(private loadUserDataService: LoadUserDataService) { }
+  constructor(private getUserService: GetUserService, private loadUserDataService: LoadUserDataService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.detailedUserCard()
+    this.getUser();
   }
+
+   getUser(): void {
+
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.getUserService.getUser(id).then((user) => this.user = user);
+
+    this.detailedUserCard();
+  }
+
   detailedUserCard(){
     this.loadUserDataService.loadUserData(this.user.login,1,1,1).then(userData => {
       if(userData){
-        [this.following, this.followers, this.repos] = userData;
+        this.cardUser = userData;
       }else {
         this.errorData()
       }
@@ -37,24 +48,24 @@ export class CardUserComponent implements OnInit {
     this.errorFollowers = true;
     this.errorRepos = true;
   }
-  refreshData(data: any){
-    console.log(data)
+  refreshData(data: string){
+
     if (data === 'following'){
       this.loadUserDataService.loadUserData(this.user.login,1,0,0).then(data => {
-        [this.following] = data;
+        this.cardUser.following = data.following;
       })
       this.errorFollowing = false;
     }
 
     if (data === 'followers'){
       this.loadUserDataService.loadUserData(this.user.login,0,1,0).then(data => {
-        [this.followers] = data;
+        this.cardUser.followers = data.followers;
       })
       this.errorFollowers = false;
     }
     if (data === 'repos'){
       this.loadUserDataService.loadUserData(this.user.login,0,0,1).then(data => {
-        [this.repos] = data;
+        this.cardUser.repos = data.repos;
       })
       this.errorRepos = false;
     }

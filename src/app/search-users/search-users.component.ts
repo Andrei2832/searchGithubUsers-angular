@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GetUserService} from "../service/get-user.service";
-import {CardUserComponent} from "../card-user/card-user.component";
+import {SearchUsers} from "../interface/search-users";
+import {User} from "../interface/user";
 
 
 @Component({
@@ -15,12 +16,10 @@ export class SearchUsersComponent implements OnInit {
   message: string = '';
   pageCount: number = 1;
   countUser: number = 0;
-  listUsers: object[] = [];
+  listUsers: User[] = [];
   userCard: any;
   timer: any;
-  constructor(private getUserService: GetUserService,private cardUserComponent: CardUserComponent) {
-
-  }
+  constructor(private getUserService: GetUserService) {}
 
   ngOnInit(): void {
   }
@@ -45,36 +44,42 @@ export class SearchUsersComponent implements OnInit {
   updateListUsers(users: string):void{
     this.getUserService.getUsers(users,this.pageCount).then(users => this.createListUsers(users,true));
   }
-  createListUsers(users: any, update = false): void{
+  createListUsers(users: SearchUsers, update = false): void{
+    console.log(users)
     this.load = false;
-    if (users){
-      if (users.ok){
+    // if (users){
+      if (users){
         try {
           if (!update){
             this.clearAll();
           }
-          users.json().then((user: any) => {
-            if (user.items){
-              this.countUser = user.total_count;
-              user.items.forEach((item: any) => this.listUsers.push(item))
-              this.pageCount++;
-            }
-            else {
-              this.clearAll();
-            }
-            this.messageCountUsersOrError(this.countUser);
-          });
+          users.items.forEach((item: User) => this.listUsers.push(item))
+          this.countUser = users.total_count;
+          this.pageCount++;
+          this.messageCountUsersOrError(this.countUser);
+          // users.json().then((user: any) => {
+          //   if (user.items){
+          //     this.countUser = user.total_count;
+          //     user.items.forEach((item: any) => this.listUsers.push(item))
+          //     this.pageCount++;
+          //   }
+          //   else {
+          //     this.clearAll();
+          //   }
+          //   this.messageCountUsersOrError(this.countUser);
+          // });
 
         }catch (e){
           console.log(e);
           this.messageCountUsersOrError(0,e);
         }
       }else {
-        this.messageCountUsersOrError(0,users.status);
+        this.clearAll();
+        this.messageCountUsersOrError(0);
       }
-    }else {
-      this.clearAll();
-    }
+    // }else {
+    //   this.clearAll();
+    // }
   }
 
   clearAll():void{
@@ -86,7 +91,7 @@ export class SearchUsersComponent implements OnInit {
     this.load = false;
   }
 
-   messageCountUsersOrError(users: number,error: any = 0): void {
+  messageCountUsersOrError(users: number,error: any = 0): void {
     if (users){
       this.message = (users > 4 ) ? `Найдено ${users} пользователей` :
         (users > 1) ? `Найдено ${users} пользователя` : 'Найден 1 пользователь';
